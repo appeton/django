@@ -1,0 +1,320 @@
+{%extends 'web/base.html'%}
+{%block checkout%}
+{%load static%}
+<style>
+    body {
+        background-color: #444444;
+    }
+
+    #body {
+        background-color: white;
+        height: 100vh;
+    }
+
+    tr {
+        text-align: center;
+    }
+
+    #hidden {
+        background-color: #ffffff;
+        box-shadow: 10px 10px 20px gray,
+            -10px -10px 20px #ffffff;
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<div id="body">
+    
+    <div class="container pt-5 ">
+        {%if error%}
+<div class="alert alert-warning" role="alert">
+    {{error}}
+  </div>
+{%endif%}
+        <table width="100%">
+            <tr style="background-color: cyan;text-align: center;">
+                <th>No.</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+
+
+
+            <script language="javascript" type="text/javascript">
+
+
+
+
+
+                let ww = localStorage.getItem('checkout');
+                console.log('ww' + ww);
+
+                var result = ww.split(',');
+                console.log('result' + result);
+
+
+
+
+
+                var Checkout = []; //this will the variable that we store our result in
+                for (var i = 0; i < result.length; i += 5) {
+                    //This for loop iterates through every other index of the array... for example: 0, 2, 4, etc.
+                    Checkout.push([result[i], result[i + 1], result[i + 2], result[i + 3], result[i + 4]]); //Adds i and i+1 as a new array to the result array
+                }
+
+
+
+
+
+
+
+
+
+                let op = [];
+
+                let TOTAL = [];
+
+
+
+                for (let i = 0; i < Checkout.length; i++) {
+                    document.write("<tr  >");
+                    document.write("<th >" + (i + 1) + "</th>");
+                    for (var j = 0; j <= 5; j++) {
+                        if (j == 5) {
+                            continue;
+                        }
+                        if (j == 3) {
+                            document.write('<th><select name="" id="">' +
+                                '<option>39</option>' + '<option>40</option>' + '<option>41</option>' + '<option>42</option>' + '<option>43</option>' + '<option>44</option>' +
+                                +'</select></th>');
+                            continue;
+                        }
+                        if (j == 4) {
+
+                            op.push(parseInt(Checkout[i][j]));
+
+
+                            document.write("<th><span onclick='minus(" + op[i] + ',' + i + ")' style='font-size:28px;cursor:pointer;margin-right:5px;'>-</span><span id='" + op[i] + "' style='border:1px solid black;width:20px;text-align:center;display:inline-block;line-height:20px;'>" + Checkout[i][3] + "</span><span onclick='add(" + op[i] + ',' + i + ")' style='font-size:20px;cursor:pointer;margin-left:5px;'>+</span></th>");
+                            document.write("<th>$<span   id='s" + op[i] + "' >" + Checkout[i][2] + "</span><span   id='v" + op[i] + "' style='display:none;'>" + Checkout[i][2] + "</span></th>");
+
+                            TOTAL[i] = parseInt(document.getElementById('v' + op[i]).innerText);
+
+                            continue;
+
+
+                        }
+                        if (j == 2) {
+                            document.write("<th> $ " + Checkout[i][j] + "</th>");
+                            continue;
+                        }
+                        document.write("<th>" + Checkout[i][j] + "</th>");
+
+
+
+                        function minus(aa, i) {
+                            console.log(i);
+                            let der = parseInt(document.getElementById('v' + aa).innerHTML);
+                            console.log('der' + der);
+                            let asdf = parseInt(document.getElementById(aa).innerHTML) - 1;
+                            if (asdf >= 1) {
+                                console.log(document.getElementById('s' + aa).innerText = asdf * der)
+                                TOTAL[i] = parseInt(document.getElementById('s' + aa).innerText);
+                                document.getElementById('total').innerHTML = TOTAL.reduce((a, b) => a + b)
+                                // console.log(document.getElementsByClassName(aa).innerText = asdf * Checkout[0][2])
+                                return document.getElementById(aa).innerText = asdf;
+                            }
+
+                        }
+                        function add(aa, i) {
+                            console.log(i);
+                            let der = parseInt(document.getElementById('v' + aa).innerHTML);
+                            let asdf = parseInt(document.getElementById(aa).innerHTML) + 1;
+                            console.log(document.getElementById('s' + aa).innerText = asdf * der)
+                            TOTAL[i] = parseInt(document.getElementById('s' + aa).innerText);
+                            document.getElementById('total').innerHTML = TOTAL.reduce((a, b) => a + b)
+                            return document.getElementById(aa).innerText = asdf;
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+                    document.write("</tr>");
+
+
+                }
+
+            </script>
+
+            <tr>
+                <th colspan="7">
+                    <hr style="height: 2px;background-color: black;">
+                </th>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <h3 style="text-align: center;">Total Prices </h3>
+                </td>
+                <th>
+                    <h3>=</h3>
+                </th>
+
+                <td>$ &nbsp;&nbsp; <b> <span id="total" name='ga'></span></b></td>
+
+
+            </tr>
+        </table>
+        <div class="buttons col-12 row justify-content-around mt-5">
+            <a href="{%url 'home'%}" class="col-5"> <button class="btn btn-outline-secondary col-12">Go to
+                    Back</button></a>
+            <button class="btn btn-dark col-5" onclick="confirm()" id="confirm">Confirm</button>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div id="hidden" class="col-md-6 container">
+    <div onclick="cancel()" style="float: right;font-size: 30px;cursor: pointer;"> &times;</div>
+    <form class="mt-5" method="POST" action="{%url 'checkout'%}">
+        
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control " id="inputAddress" name='address' placeholder="1234 Main St" required>
+        </div>
+        <div class="form-group">
+            <label for="ds">Phone</label>
+            <input type="text" class="form-control " id="ds" name="phone"placeholder="Phone Number" required>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input type="text" class="form-control" name="city"id="inputCity" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputState">State</label>
+                <select id="inputState" class="form-control" name="select" required>
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputZip">Zip</label>
+                <input type="text" class="form-control" name='zip' id="inputZip"required>
+            </div>
+        </div>
+        <div id="paypal-button-container" class="col-12"></div>
+        <input type="text" id="test" style="display: none;" name="test" value="false">
+
+
+        <button type="submit" class="btn btn-primary col-12 my-3">Submit</button>
+    </form>
+</div>
+
+
+
+
+<!-- test -->
+
+
+
+
+
+
+<script>
+    function confirm() {
+        console.log('aa')
+        document.getElementById('hidden').style.display = 'block';
+        var name = 'Joe';
+        var age = 20;
+       
+
+    }
+    function cancel() {
+        console.log('aa')
+        document.getElementById('hidden').style.display = 'none';
+    }
+    document.getElementById('total').innerHTML = TOTAL.reduce((a, b) => a + b, 0)
+
+
+
+
+
+
+
+</script>
+
+<!-- Set up a container element for the button -->
+
+
+<!-- Include the PayPal JavaScript SDK -->
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AaaoQxo2m2bkDYV4nSRrBzgy-iAM_u-COWnu-KbgMN0g_hi0M-qpKpKJrgPyRM-UYlfMwWijrk6bGitA&currency=USD"></script>
+
+<script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+        locale: 'en_US',
+        style: {
+            size: 'small',
+            color: 'blue',
+            shape: 'pill',
+            label: 'checkout',
+            tagline: 'true'
+        },
+        style: {
+
+            layout: 'horizontal',
+            fundingicons: 'true',
+        },
+        funding: {
+            allowed: [paypal.FUNDING.CARD],
+
+        },
+
+        // Set up the transaction
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: document.getElementById('total').innerHTML
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+                // Show a success message to the buyer
+                alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                document.getElementById('test').value='true'
+                console.log(document.getElementById('test').value)
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
+{%endblock%}
+<!-- YAm9CG-Z&ny4iJb -->

@@ -1,0 +1,297 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/style.css'%}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+
+
+    <div id="nav" class="container ">
+        <div class="row" id="b">
+            <a href="{%url 'home'%}" id="tankamout" class="ml-4">
+                <h1>TankamouT</h1>
+            </a>
+            <div id="links" class="col-6">
+                <a href="">MEN</a>
+                <a href="">WOMEN</a>
+                <a href="">KIDS</a>
+                <a href="">PRODUCT</a>
+            </div>
+            <div id="buttons">
+                {% if user.is_authenticated %}
+
+                <a class="nav-item nav-link" href="{% url 'logout'%}"><button type="button"
+                        class="btn btn-outline-light" id="login">Logout</button></a>
+                {%else%}
+
+                <a href="{%url 'register' %}"> <button type="button" class="btn btn-outline-light" id="login">Sign
+                        Up</button></a>
+                {%endif%}
+
+
+                <a href="{%url 'checkout' %}">
+                    <svg id="cart" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35"
+                        viewBox="0 0 172 172" style=" fill:#000000;margin-left: 60px;">
+                        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                            stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                            font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                            style="mix-blend-mode: normal">
+                            <path d="M0,172v-172h172v172z" fill="none"></path>
+                            <g id="Layer_1" fill="#ffffff">
+                                <circle cx="76" cy="117" transform="scale(1.34375,1.34375)" r="7"></circle>
+                                <circle cx="26" cy="117" transform="scale(1.34375,1.34375)" r="7"></circle>
+                                <path
+                                    d="M25.53125,32.25h121.34062c6.45,0 11.01875,6.31562 8.86875,12.3625l-18.40938,55.3625c-2.55312,7.65937 -9.80937,12.9 -17.87187,12.9h-93.92812z">
+                                </path>
+                                <path
+                                    d="M111.53125,153.1875c-2.28437,0 -4.03125,1.74687 -4.03125,4.03125c0,2.95625 -2.41875,5.375 -5.375,5.375c-2.95625,0 -5.375,-2.41875 -5.375,-5.375c0,-1.47813 0.5375,-2.82188 1.6125,-3.7625c1.6125,-1.6125 1.6125,-4.16563 0,-5.64375c-1.6125,-1.6125 -4.16562,-1.6125 -5.64375,0c-2.55313,2.55312 -3.89688,5.9125 -3.89688,9.54063c0,7.39063 6.04688,13.4375 13.4375,13.4375c7.39063,0 13.4375,-6.04687 13.4375,-13.4375c-0.13437,-2.41875 -1.88125,-4.16563 -4.16562,-4.16563z">
+                                </path>
+                                <path
+                                    d="M157.75625,33.8625c-2.55312,-3.49375 -6.58437,-5.64375 -10.88437,-5.64375h-117.30938v-9.40625c0,-2.28438 -1.74687,-4.03125 -4.03125,-4.03125h-13.4375c-2.28438,0 -4.03125,1.74687 -4.03125,4.03125c0,2.28438 1.74687,4.03125 4.03125,4.03125h9.40625v69.875c0,2.28437 1.74687,4.03125 4.03125,4.03125c2.28438,0 4.03125,-1.74688 4.03125,-4.03125v-56.4375h117.30937c1.74688,0 3.35938,0.80625 4.3,2.28437c1.075,1.47813 1.34375,3.225 0.67188,4.8375l-18.40938,55.3625c-2.01562,6.04688 -7.525,10.07813 -13.975,10.07813h-84.52187c-7.39062,0 -13.4375,6.04688 -13.4375,13.4375c0,7.39063 6.04688,13.4375 13.4375,13.4375h63.82813c4.8375,0 8.73438,3.89687 8.73438,8.73438c0,2.28438 1.74688,4.03125 4.03125,4.03125c2.28437,0 4.03125,-1.74687 4.03125,-4.03125c0,-9.27187 -7.525,-16.79687 -16.79687,-16.79687h-63.82812c-2.95625,0 -5.375,-2.41875 -5.375,-5.375c0,-2.95625 2.41875,-5.375 5.375,-5.375h84.52188c9.80938,0 18.54375,-6.31562 21.63437,-15.5875l18.40938,-55.3625c1.47812,-4.16563 0.80625,-8.6 -1.74688,-12.09375z">
+                                </path>
+                                <path
+                                    d="M34.9375,143.78125c-7.39062,0 -13.4375,6.04688 -13.4375,13.4375c0,7.39063 6.04688,13.4375 13.4375,13.4375c7.39063,0 13.4375,-6.04687 13.4375,-13.4375c0,-7.39062 -6.04687,-13.4375 -13.4375,-13.4375zM34.9375,162.59375c-2.95625,0 -5.375,-2.41875 -5.375,-5.375c0,-2.95625 2.41875,-5.375 5.375,-5.375c2.95625,0 5.375,2.41875 5.375,5.375c0,2.95625 -2.41875,5.375 -5.375,5.375z">
+                                </path>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+
+                <label id="number" for="cart" style="width:20px;height:20px;border-radius:100%;
+            background-color:red;color:white;text-align: center;line-height: 20px;margin-left: 30px;">
+                    0
+                </label>
+
+
+
+            </div>
+
+            <div id="hiddenn" class="mr-4 pt-3">
+
+
+
+
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor" onclick="menu()"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z" />
+                </svg>
+               
+            </div>
+        </div>
+    </div>
+    <div id="menu" class="container"style="border-radius:10px;width:150px;display: none;z-index: 100;position: fixed;top:55px;right: 0px;background-color: rgba(0, 0, 0, 0.5);">
+       <div> <small style="float: right;font-size: 20px;color:white;cursor: pointer;" onclick="menuh()">&times;</small></div>
+        <center><a href="{%url 'checkout' %}" style="margin:20px auto;text-align: center;display: inline-block;" class="py-3 " >
+            <svg id="cart" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35"
+                viewBox="0 0 172 172" style=" fill:#000000;">
+                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                    style="mix-blend-mode: normal">
+                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                    <g id="Layer_1" fill="#ffffff">
+                        <circle cx="76" cy="117" transform="scale(1.34375,1.34375)" r="7"></circle>
+                        <circle cx="26" cy="117" transform="scale(1.34375,1.34375)" r="7"></circle>
+                        <path
+                            d="M25.53125,32.25h121.34062c6.45,0 11.01875,6.31562 8.86875,12.3625l-18.40938,55.3625c-2.55312,7.65937 -9.80937,12.9 -17.87187,12.9h-93.92812z">
+                        </path>
+                        <path
+                            d="M111.53125,153.1875c-2.28437,0 -4.03125,1.74687 -4.03125,4.03125c0,2.95625 -2.41875,5.375 -5.375,5.375c-2.95625,0 -5.375,-2.41875 -5.375,-5.375c0,-1.47813 0.5375,-2.82188 1.6125,-3.7625c1.6125,-1.6125 1.6125,-4.16563 0,-5.64375c-1.6125,-1.6125 -4.16562,-1.6125 -5.64375,0c-2.55313,2.55312 -3.89688,5.9125 -3.89688,9.54063c0,7.39063 6.04688,13.4375 13.4375,13.4375c7.39063,0 13.4375,-6.04687 13.4375,-13.4375c-0.13437,-2.41875 -1.88125,-4.16563 -4.16562,-4.16563z">
+                        </path>
+                        <path
+                            d="M157.75625,33.8625c-2.55312,-3.49375 -6.58437,-5.64375 -10.88437,-5.64375h-117.30938v-9.40625c0,-2.28438 -1.74687,-4.03125 -4.03125,-4.03125h-13.4375c-2.28438,0 -4.03125,1.74687 -4.03125,4.03125c0,2.28438 1.74687,4.03125 4.03125,4.03125h9.40625v69.875c0,2.28437 1.74687,4.03125 4.03125,4.03125c2.28438,0 4.03125,-1.74688 4.03125,-4.03125v-56.4375h117.30937c1.74688,0 3.35938,0.80625 4.3,2.28437c1.075,1.47813 1.34375,3.225 0.67188,4.8375l-18.40938,55.3625c-2.01562,6.04688 -7.525,10.07813 -13.975,10.07813h-84.52187c-7.39062,0 -13.4375,6.04688 -13.4375,13.4375c0,7.39063 6.04688,13.4375 13.4375,13.4375h63.82813c4.8375,0 8.73438,3.89687 8.73438,8.73438c0,2.28438 1.74688,4.03125 4.03125,4.03125c2.28437,0 4.03125,-1.74687 4.03125,-4.03125c0,-9.27187 -7.525,-16.79687 -16.79687,-16.79687h-63.82812c-2.95625,0 -5.375,-2.41875 -5.375,-5.375c0,-2.95625 2.41875,-5.375 5.375,-5.375h84.52188c9.80938,0 18.54375,-6.31562 21.63437,-15.5875l18.40938,-55.3625c1.47812,-4.16563 0.80625,-8.6 -1.74688,-12.09375z">
+                        </path>
+                        <path
+                            d="M34.9375,143.78125c-7.39062,0 -13.4375,6.04688 -13.4375,13.4375c0,7.39063 6.04688,13.4375 13.4375,13.4375c7.39063,0 13.4375,-6.04687 13.4375,-13.4375c0,-7.39062 -6.04687,-13.4375 -13.4375,-13.4375zM34.9375,162.59375c-2.95625,0 -5.375,-2.41875 -5.375,-5.375c0,-2.95625 2.41875,-5.375 5.375,-5.375c2.95625,0 5.375,2.41875 5.375,5.375c0,2.95625 -2.41875,5.375 -5.375,5.375z">
+                        </path>
+                    </g>
+                </g>
+            </svg>
+      
+        <label id="snumber" for="cart" style="width:20px;height:20px;border-radius:100%;
+        background-color:red;color:white;text-align: center;line-height: 20px;">
+                0
+            </label>  </a>
+            <br>
+            {% if user.is_authenticated %}
+
+            <a class="nav-item nav-link" href="{% url 'logout'%}"><button type="button"
+                    class="btn btn-outline-light mb-3" id="login">Logout</button></a>
+            {%else%}
+
+            <a href="{%url 'register' %}"> <button type="button" class="btn btn-outline-light mb-3" id="login">Sign
+                    Up</button></a>
+            {%endif%}</center>
+     
+    </div>
+    <div id="loading">
+        <img id="loading-image" src="{%static 'images/758.gif'%}" alt="Loading..." />
+    </div>
+
+    {%block nav%}
+    {%endblock%}
+
+    {%block slider%}
+    {%endblock%}
+
+    {%block product%}
+    {%endblock%}
+    {%block discount%}
+    {%endblock%}
+
+    {%block form%}
+
+    {%endblock%}
+
+    {%block login%}
+
+    {%endblock%}
+    {%block checkout%}
+
+
+    {%endblock%}
+
+
+    {%block logout%}
+
+
+    {%endblock%}
+    <style>
+        #loading {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: block;
+            /* opacity: 0.7; */
+            background-color: #fff;
+            z-index: 99;
+            text-align: center;
+        }
+
+        #loading-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            z-index: 100;
+        }
+    </style>
+    <script>
+        let array = [];
+        let checkout = [];
+        
+
+        window.onload = function () { document.getElementById("loading").style.display = "none" }
+        function menu(){
+            document.getElementById('menu').style.display='block';
+        }
+        function menuh(){
+            document.getElementById('menu').style.display='none';
+        }
+
+    </script>
+
+
+
+    {%for product in product%}
+    <script>
+
+        document.getElementById('{{product.id}}').addEventListener('click', () => {
+            let add = document.getElementById('{{product.id}}').getAttribute('value');
+            let brand = '{{product.p_brand}}';
+            let name = '{{product.p_name}}';
+            let price = '{{product.price}}';
+            let quantity = '{{product.quantity}}';
+            let id = '{{product.id}}'
+
+
+
+
+
+
+            array = [
+                name, brand, price, 1, id
+            ]
+
+            checkout.push(array);
+            // console.log(checkout);
+
+            aa = localStorage.setItem('checkout', checkout);
+
+
+
+
+            document.getElementById('number').innerHTML = checkout.length;
+            document.getElementById('snumber').innerHTML = checkout.length;
+
+
+        })
+
+        document.getElementById('s{{product.id}}').addEventListener('click', () => {
+            let add = document.getElementById('{{product.id}}').getAttribute('value');
+            let brand = '{{product.p_brand}}';
+            let name = '{{product.p_name}}';
+            let price = '{{product.price}}';
+            let quantity = '{{product.quantity}}';
+            let id = '{{product.id}}'
+
+
+
+
+
+
+            array = [
+                name, brand, price, 1, id
+            ]
+
+            checkout.push(array);
+            // console.log(checkout);
+
+            aa = localStorage.setItem('checkout', checkout);
+
+
+
+
+            document.getElementById('number').innerHTML = checkout.length;
+
+
+        })
+
+
+    </script>
+    {%endfor%}
+    <script>
+
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
